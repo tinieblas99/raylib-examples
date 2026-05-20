@@ -3,7 +3,8 @@
 # Run once before building.
 set -e
 
-PARENT="$(cd "$(dirname "$0")/../.." && pwd)"
+REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+PARENT="$(dirname "$REPO_DIR")"
 
 clone_or_skip() {
     local url="$1" dest="$2" extra="${3:-}"
@@ -17,9 +18,11 @@ clone_or_skip() {
 
 clone_or_skip "https://github.com/raysan5/raylib.git"         "$PARENT/raylib"
 clone_or_skip "https://github.com/raylib-extras/rlImGui.git"  "$PARENT/rlImGui"
+clone_or_skip "https://github.com/ocornut/imgui.git"          "$PARENT/rlImGui/imgui" "-b docking"
 
-# rlImGui bundles imgui as a subdirectory — clone docking branch there
-clone_or_skip "https://github.com/ocornut/imgui.git" "$PARENT/rlImGui/imgui" "-b docking"
+# rlImGui has no CMakeLists.txt — copy the one provided in this repo
+cp "$REPO_DIR/cmake/rlImGui-CMakeLists.txt" "$PARENT/rlImGui/CMakeLists.txt"
+echo "==> Installed CMakeLists.txt for rlImGui"
 
 echo ""
 echo "==> All sources ready under $PARENT"
