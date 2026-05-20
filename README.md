@@ -37,6 +37,12 @@ Clones the following repos **as siblings** of this repository:
 ```
 Compiles raylib (static) and installs it to `../raylib-install/`.
 
+> **Windows cross-compilation** (from Linux, requires `sudo apt install mingw-w64`):
+> ```bash
+> ./scripts/build-windows.sh
+> ```
+> Installs raylib static lib and headers to `../raylib-win64/`.
+
 ### 5. Build and run an example
 ```bash
 cd raylib-basic
@@ -56,5 +62,6 @@ parent/
 │   └── raylib-basic/
 ├── raylib/             ← cloned by setup.sh
 ├── rlImGui/            ← cloned by setup.sh (includes imgui/docking)
-└── raylib-install/     ← built by build-linux.sh
+├── raylib-install/     ← built by build-linux.sh
+└── raylib-win64/       ← built by build-windows.sh
 ```
